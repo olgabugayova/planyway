@@ -1,0 +1,28 @@
+{
+  "name": "planyway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config jest.config.js",
+    "init": "jest --init"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olgabugayova/planyway.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olgabugayova/planyway/issues"
+  },
+  "homepage": "https://github.com/olgabugayova/planyway#readme",
+  "dependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "htmlreport4jest": "^2.4.1",
+    "jest-cli": "^27.0.5",
+    "supertest": "^6.1.3"
+  }
+}
