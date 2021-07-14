@@ -13,3 +13,15 @@ api_test:
     paths:
       - ./temp/result.html
     expire_in: 2 week
+
+pages:
+  stage: info
+  script:
+    - mkdir public
+    - mv ./temp/result.html public
+    - sh .notify.sh
+  artifacts:
+    paths:
+      - public
+  rules:
+    - when: always
