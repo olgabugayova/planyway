@@ -11,5 +11,5 @@ api_test:
   artifacts:
     when: always
     paths:
-      - ./temp/index.html
+      - ./temp/result.html
     expire_in: 2 week
