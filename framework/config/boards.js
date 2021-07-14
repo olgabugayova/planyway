@@ -10,6 +10,9 @@ const testBoard = {
         name: 'New card',
         id: '60d861cd2343ce0978367324'
     },
+    newName: {
+        name: 'Test',
+    },
 };
 
 

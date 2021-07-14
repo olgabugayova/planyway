@@ -45,12 +45,12 @@ const TrelloCards = function TrelloCards() {
         return idFirstCard;
 
     };
-//TODO проверить нужно ли добавлять конкретный айдишник юзера после idMember
+
     this.addMemberToCard = async function addMemberToCard(
         idCard, idMember, apiKey, token
     ) {
         const r = await supertest(urls.trello)
-            .post(`/1/cards/${idCard}/idMembers/${idMember}?key=${apiKey}&token=${token}`)
+            .post(`/1/cards/${idCard}/idMembers?key=${apiKey}&token=${token}&value=${idMember}`)
             .set('Accept', 'application/json');
         return r;
     };
@@ -64,18 +64,27 @@ const TrelloCards = function TrelloCards() {
         return r;
     };
 
-    this.checkMemberAddedInCard = async function getMembersOfCard (
-        idCard, apiKey, token, idMember
+    this.getMembersOfCard = async function getMembersOfCard (
+        idCard, apiKey, token
     ) {
         const r = await supertest(urls.trello)
-            .get(`/1/cards/{id}/members?key=${apiKey}&token=${token}`)
+            .get(`/1/cards/${idCard}/members?key=${apiKey}&token=${token}`)
             .set('Accept', 'application/json');
+        return r;
+    };
+
+    this.checkMemberInCard = async function checkMemberInCard (
+        idCard, apiKey, token, idMember) {
+        const r = await new TrelloCards()
+            .getMembersOfCard(idCard, apiKey, token);
+        // const r = await supertest(urls.trello)
+        //     .get(`/1/cards/${idCard}/members?key=${apiKey}&token=${token}`)
+        //     .set('Accept', 'application/json');
 
         const memberAdded = r.body
             .filter((member) => member.id === idMember)
             .map((member) => member.id)[0];
-
-
+        return memberAdded;
     };
 };
 

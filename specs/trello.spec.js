@@ -6,7 +6,7 @@ import {testBoard} from '../framework/config/boards';
 import {TrelloLists} from '../framework/services/trelloLists.services';
 import {TrelloCards} from '../framework/services/trelloCards.services';
 
-describe('Get information about boards', () => {
+describe.skip('Get information about boards', () => {
     test('Get all boards user belongs to', async () => {
         const r = await new TrelloBoards()
             .getBoards(user.username, user.apiKey, user.token);

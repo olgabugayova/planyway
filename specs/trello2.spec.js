@@ -9,7 +9,7 @@ import {urls} from '../framework/config';
 
 //TODO перепроверить, посмотреть код в tfs
 describe('Authorization',  () => {
-    test('Auth with OAuth', async () => {
+    test.skip('Auth with OAuth', async () => {
         const r = await supertest(urls.trello)
             .get(`/1/authorize/${user.apiKey}`)
             .set('Accept', 'application/json');
@@ -35,9 +35,9 @@ describe('Get information about boards', () => {
     test('Get Board Id by name', async () => {
         const idBoard = await new TrelloBoards()
             .getIdBoardByName(
-                user.username, user.apiKey, user.token, testBoard.board.name
+                user.username, user.apiKey, user.token, testBoard.name
             );
-        expect(idBoard).toEqual(testBoard.board.id);
+        expect(idBoard).toEqual(testBoard.id);
     });
 
     test('Rename board user belongs to', async () => {
@@ -47,13 +47,13 @@ describe('Get information about boards', () => {
             );
 
         const { status, body } = await new TrelloBoards()
-            .updateBoard(idBoard, user.apiKey, user.token, 'Test');
+            .updateBoard(idBoard, user.apiKey, user.token, { name: 'Test' });
         expect(status)
             .toEqual(200);
         expect(body.name).toEqual('Test');
 
         const response = await new TrelloBoards()
-            .updateBoard(idBoard, user.apiKey, user.token, testBoard.name);
+            .updateBoard(idBoard, user.apiKey, user.token, { name: testBoard.name });
         expect(response.status)
             .toEqual(200);
         expect(response.body.name).toEqual(testBoard.name)
@@ -76,27 +76,26 @@ describe('Get information about boards', () => {
     test('Get an array of Cards in a List', async () => {
         const idBoard = await new TrelloBoards()
             .getIdBoardByName(
-                user.username, user.apiKey, user.token, testBoard.board.name
+                user.username, user.apiKey, user.token, testBoard.name
             );
 
         const idList = await new TrelloLists()
-            .getIdLIstByName(idBoard, user.apiKey, user.token, testBoard.list.name);
+            .getIdLIstByName(idBoard, user.apiKey, user.token, testBoard.testList.name);
 
         const r = await new TrelloCards()
             .getCards(idList, user.apiKey, user.token);
         expect(r.status).toEqual(200);
-        console.log(r.body);
     });
 
     test('Get the first card in a List', async () => {
         const idBoard = await new TrelloBoards()
             .getIdBoardByName(
-                user.username, user.apiKey, user.token, testBoard.board.name
+                user.username, user.apiKey, user.token, testBoard.name
             );
 
         const idList = await new TrelloLists()
             .getIdLIstByName(
-                idBoard, user.apiKey, user.token, testBoard.list.name
+                idBoard, user.apiKey, user.token, testBoard.testList.name
             );
 
         const idCard = await new TrelloCards()
@@ -149,7 +148,7 @@ describe('Get information about boards', () => {
             .getCurrentCardsNumberInList(idList, user.apiKey, user.token);
 
         const r = await new TrelloCards()
-            .createCard(user.apiKey, user.token, idList, 'New Test Card');
+            .createCard(user.apiKey, user.token, idList, {name: 'New Test Card'});
         expect(r.status).toEqual(200);
 
         const cardsNumber = await new TrelloCards()
@@ -181,11 +180,10 @@ describe('Get information about boards', () => {
 
         const idMember = await new TrelloBoards()
             .getMemberIdByName(idBoard, user.apiKey, user.token,user.username);
-        //TODO заменить целевой айдишник проверочным
-        expect(idMember).toEqual(idMember);
+        expect(idMember).toEqual(user.id);
     });
 
-    test('Add a member to a Card', async () => {
+    test.only('Add a member to a Card', async () => {
         const idBoard = await new TrelloBoards()
             .getIdBoardByName(
                 user.username, user.apiKey, user.token, testBoard.name
@@ -205,14 +203,12 @@ describe('Get information about boards', () => {
 
         expect(r.status).toEqual(200);
 
-        //TODO написать проверку что именно этот мембер добавлен в карточку
-        //для этого получить список мемберов карточки и проверить что он там есть
-        //затем удалить его
+        const cardMemberId = await new TrelloCards()
+            .checkMemberInCard(idCard, user.apiKey, user.token, idMember);
 
-        const cardMembersId = await new TrelloCards()
-            .getMembersIdOfCard(idCard, user.apiKey, user.token);
+        expect(cardMemberId).toEqual(user.id);
 
-
-
+        await new TrelloCards()
+            .removeMemberFromCard(idCard, idMember, user.apiKey, user.token);
     })
 })
