@@ -8,7 +8,7 @@ import {TrelloCards} from '../framework/services/trelloCards.services';
 import {urls} from '../framework/config';
 
 //TODO перепроверить, посмотреть код в tfs
-describe('Authorization',  () => {
+describe.skip('Authorization',  () => {
     test.skip('Auth with OAuth', async () => {
         const r = await supertest(urls.trello)
             .get(`/1/authorize/${user.apiKey}`)
@@ -17,7 +17,7 @@ describe('Authorization',  () => {
         const token = r.body;
     })
 });
-describe('Get information about boards', () => {
+describe.skip('Get information about boards', () => {
     test('Get all boards user belongs to', async () => {
         const r = await new TrelloBoards()
             .getBoards(user.username, user.apiKey, user.token);
@@ -183,7 +183,7 @@ describe('Get information about boards', () => {
         expect(idMember).toEqual(user.id);
     });
 
-    test.only('Add a member to a Card', async () => {
+    test('Add a member to a Card', async () => {
         const idBoard = await new TrelloBoards()
             .getIdBoardByName(
                 user.username, user.apiKey, user.token, testBoard.name
@@ -210,5 +210,6 @@ describe('Get information about boards', () => {
 
         await new TrelloCards()
             .removeMemberFromCard(idCard, idMember, user.apiKey, user.token);
-    })
+    });
+
 })
