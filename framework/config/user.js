@@ -1,9 +1,10 @@
 const user = {
-    username: 'olgabugayova1',
-    apiKey: '2d4c83e57677f836e37d4cd1a5de463a',
-    token: 'e0772258ccc3a3a3ae13e37beb9ef3bb61ee4d19967af1b9db28429a1dec94c8',
-    id: '59642157d8cdeb63872850e9',
-    fullName: 'Olga Bugayova User',
+    apiKey: '5a5af49610f91e16f178292d459e545d',
+    token: '5ede6171b6a30edd564bf486c214e67e136190aadcb3375b57baea27b7786fcb',
+    id: '60f6de9e00ae94101fd598a3',
+    fullName: 'Planyway Test',
+    username: 'planywaytest3',
+    email: 'planywaytest@yandex.ru',
 }
 
 export { user }

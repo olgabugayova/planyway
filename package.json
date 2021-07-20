@@ -22,13 +22,13 @@
     "@babel/preset-env": "^7.14.7",
     "@jest/globals": "^27.0.5",
     "htmlreport4jest": "^2.4.1",
-    "jest": "^27.0.6",
-    "jest-cli": "^27.0.6",
-    "querystring": "^0.2.1",
-    "supertest": "^6.1.3"
+    "jest-cli": "^27.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
-    "babel-jest": "^27.0.6"
+    "babel-jest": "^27.0.6",
+    "jest": "^27.0.6",
+    "querystring": "^0.2.1",
+    "supertest": "^6.1.3"
   }
 }
