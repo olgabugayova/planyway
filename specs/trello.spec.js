@@ -8,7 +8,7 @@ import {testData} from '../framework/config/testData';
 let boardIdsBefore;
 let boardIdsAfter;
 
-describe('Получение информации о пользователе', () => {
+describe.skip('Получение информации о пользователе', () => {
 
     beforeAll ( async () => {
         await testData.boardNames.forEach((boardName) => {
@@ -91,7 +91,7 @@ describe('Получение информации о пользователе', 
     })
 });
 
-describe('Основной функционал', () => {
+describe.skip('Основной функционал', () => {
 
     beforeAll ( async () => {
         await testData.boardNames.forEach((boardName) => {

@@ -1,0 +1,7 @@
+require:
+  - '@babel/register'
+spec: 'specs/**/*.spec_ui.js'
+timeout: 50000
+diff: true
+color: true
+ui: 'bdd'
