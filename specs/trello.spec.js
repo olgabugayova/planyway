@@ -7,13 +7,14 @@ import {TrelloLists} from '../framework/services/trelloLists.services';
 import {TrelloCards} from '../framework/services/trelloCards.services';
 
 describe('Получение информации о пользователе при авторизации', () => {
-    beforeAll (() => {
+    beforeAll (async () => {
         boardNames.forEach(async (boardName) => {
             await apiProvider().TrelloBoards().createBoard(user.apiKey, user.token, boardName)
         });
 
-        const boardIds = (await apiProvider().TrelloMembers().getMember(user.id, user.apiKey, user.token))
-            .body.boards.map((board) => board.id);
+        const r = await apiProvider().TrelloMembers().getMember(user.id, user.apiKey, user.token);
+        const boardsIds = r.body.boards.map((board) => board.id);
+        console.log(boardsIds);
 
     });
 

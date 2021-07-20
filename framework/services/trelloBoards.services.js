@@ -6,11 +6,11 @@ import {testBoard} from '../config/boards';
 
 const TrelloBoards = function TrelloBoards() {
     this.createBoard = async function createBoard(apiKey, token, boardName) {
-        return r = await supertest(urls.trello)
+        const r = await supertest(urls.trello)
         .post('/1/boards/')
         .query({key: `${apiKey}`, token: `${token}`, name: `${boardName}` })
         .set('Accept', 'application/json');
-
+        return r;
     };
 
     this.getBoardsData = async function getBoardsInfo(dataFields, boardIds, apiKey, token) {

@@ -15,5 +15,10 @@ const testBoard = {
     },
 };
 
+const boardNames = [
+    'Board 8',
+    'Board 9',
+    'Board 10',
+]
 
-export { testBoard }
+export { testBoard, boardNames }
