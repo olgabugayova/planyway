@@ -5,6 +5,7 @@ const user = {
     fullName: 'Planyway Test',
     username: 'planywaytest3',
     email: 'planywaytest@yandex.ru',
+    password: 'Planyway.test',
 }
 
 export { user }
