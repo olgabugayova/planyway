@@ -9,7 +9,7 @@ import {testData} from '../framework/config/testData';
 
 let boardIdsAfter;
 
-describe.skip('Получение информации о пользователе', () => {
+describe('Получение информации о пользователе', () => {
     let boardIdsBefore;
     beforeAll ( async () => {
         for (let boardName of testData.boardNames) {
@@ -106,8 +106,10 @@ describe('Основной функционал', () => {
             .getMemberBoardIdByName(
                 user.id, user.apiKey, user.token, testData.boardNames[0]
             );
-        const listId = (await apiProvider().TrelloBoards().getBoardLists(boardId, user.apiKey, user.token))
-            .body.map((list) => list.id)[0];
+        const { body } = await apiProvider().TrelloBoards().getBoardLists(boardId, user.apiKey, user.token);
+        console.log('test', body);
+        const listId = body.map((list) => list.id)[0];
+
 
         for (let cardName of testData.cardNames) {
             await apiProvider().TrelloCards().createCard(user.apiKey, user.token, cardName, listId);
@@ -146,17 +148,6 @@ describe('Основной функционал', () => {
         const r = await apiProvider().TrelloCards().createCard(user.apiKey, user.token, testData.cardNames[0], listId);
         expect(r.status).toEqual(200);
     });
-
-    // test.only('Выбрасывать ошибку, если не отправлен id листа при создании карточки', async () => {
-    //     const boardId = await apiProvider().TrelloMembers()
-    //         .getMemberBoardIdByName(
-    //             user.id, user.apiKey, user.token, testData.boardNames[2]
-    //         );
-
-    //     const r = await apiProvider().TrelloCards().createCard(user.apiKey, user.token, testData.cardNames[0]);
-    //     expect(r.status).toThrow();
-    //     console.log(r.status, r.body)
-    // });
 
     test('Добавить пользователя в карточку', async () => {
         const boardId = await apiProvider().TrelloMembers()
