@@ -22,10 +22,6 @@ describe('Переход к доске, создание тасклиста, с�
             .getMemberBoardIdByName(
                 user.id, user.apiKey, user.token, testData.boardNames[0]
             );
-
-        // await app.HomePage().createBoard('Test board');
-        // await app.BoardPage().getBoardName();
-
     });
     afterEach(async () => {
         const r = await apiProvider().TrelloMembers().getMember(user.id, user.apiKey, user.token);
@@ -50,7 +46,6 @@ describe('Переход к доске, создание тасклиста, с�
 
         await app.TaskListMenu().deleteList(4);
         await app.ConfirmationDialog().deleteConfirmation();
-
     });
 
     it('Пользователь может создать карточку в тасклисте', async () => {

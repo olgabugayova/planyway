@@ -1,8 +1,8 @@
 import supertest from 'supertest';
 import { urls } from '../config';
 import querystring from 'querystring';
+import {apiProvider} from './index';
 import {user} from '../config/user';
-import {testBoard} from '../config/testData';
 
 const TrelloBoards = function TrelloBoards() {
     this.createBoard = async function createBoard(apiKey, token, boardName) {
@@ -16,7 +16,6 @@ const TrelloBoards = function TrelloBoards() {
         .set('Accept', 'application/json');
         return r;
     };
-
     this.deleteBoard = async function deleteBoard(boardId, apiKey, token) {
         const r = await supertest(urls.trello)
             .delete(`/1/boards/${boardId}`)
@@ -27,7 +26,6 @@ const TrelloBoards = function TrelloBoards() {
             .set('Accept', 'application/json');
         return r;
     };
-
     this.getBoardsData = async function getBoardsInfo(dataFields, boardIds, apiKey, token) {
         const r = await supertest(urls.trello)
         .get('/1/batch/')
@@ -40,7 +38,6 @@ const TrelloBoards = function TrelloBoards() {
         })
         .set('Accept', 'application/json');
         return r;
-        //добавить ошибку если отправляется больше 10 запросов в batch
     };
     this.getBoardLists = async function getLists(idBoard, apiKey, token) {
         const r = await supertest(urls.trello)
@@ -51,6 +48,19 @@ const TrelloBoards = function TrelloBoards() {
             })
             .set('Accept', 'application/json');
         return r;
+    };
+
+    this.getListIdByIndex = async function getListIdByPIndex(idBoard, apiKey, token, index) {
+        const { body } = await supertest(urls.trello)
+            .get(`/1/boards/${idBoard}/lists`)
+            .query({
+                key: apiKey,
+                token: token
+            })
+            .set('Accept', 'application/json');
+
+        const listId = body.map((list) => list.id)[index];
+        return listId;
     };
 
     this.getBoardCards = async function getBoardCards(idBoard, apiKey, token) {
