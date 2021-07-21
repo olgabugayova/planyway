@@ -6,7 +6,10 @@ const TrelloTokens = function TrelloTokens() {
     this.getTokenMember = async function getTokenMember(apiKey, token) {
         const r = await supertest(urls.trello)
             .get(`/1/tokens/${token}/member`)
-            .query({key: `${apiKey}`, token: `${token}`})
+            .query({
+                key: apiKey,
+                token: token
+            })
             .set('Accept', 'application/json');
         return r;
     }

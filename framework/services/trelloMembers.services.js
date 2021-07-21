@@ -7,8 +7,8 @@ const TrelloMembers = function TrelloMembers() {
         const r = await supertest(urls.trello)
             .get(`/1/members/${memberId}`)
             .query({
-                key: `${apiKey}`,
-                token: `${token}`,
+                key: apiKey,
+                token: token,
                 fields: 'fullName, email',
                 organizations: 'all',
                 organization_fields: 'name,displayName,logoHash,limits,memberships,prefs,premiumFeatures',
@@ -23,8 +23,8 @@ const TrelloMembers = function TrelloMembers() {
         const r = await supertest(urls.trello)
             .get(`/1/members/${memberId}/boards`)
             .query({
-                key: `${apiKey}`,
-                token: `${token}`
+                key: apiKey,
+                token: token
             })
             .set('Accept', 'application/json');
 

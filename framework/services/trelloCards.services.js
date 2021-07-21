@@ -6,12 +6,13 @@ const TrelloCards = function TrelloCards() {
         const r = await supertest(urls.trello)
             .post('/1/cards')
             .query({
-                key: `${apiKey}`,
-                token: `${token}`,
-                name: `${name}`,
-                idList: `${idList}`,
+                key: apiKey,
+                token: token,
+                name: name,
+                idList: idList,
             })
-            .set('Accept', 'application/json')
+            .set('Accept', 'application/json');
+
         return r;
     };
 
@@ -21,9 +22,9 @@ const TrelloCards = function TrelloCards() {
         const r = await supertest(urls.trello)
             .post(`/1/cards/${idCard}/idMembers`)
             .query({
-                key: `${apiKey}`,
-                token: `${token}`,
-                value: `${idMember}`,
+                key: apiKey,
+                token: token,
+                value: idMember,
             })
             .set('Accept', 'application/json');
         return r;

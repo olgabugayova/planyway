@@ -9,9 +9,9 @@ const TrelloBoards = function TrelloBoards() {
         const r = await supertest(urls.trello)
         .post('/1/boards/')
         .query({
-            key: `${apiKey}`,
-            token: `${token}`,
-            name: `${boardName}`
+            key: apiKey,
+            token: token,
+            name: boardName
         })
         .set('Accept', 'application/json');
         return r;
@@ -21,8 +21,8 @@ const TrelloBoards = function TrelloBoards() {
         const r = await supertest(urls.trello)
             .delete(`/1/boards/${boardId}`)
             .query({
-                key: `${apiKey}`,
-                token: `${token}`,
+                key: apiKey,
+                token: token,
             })
             .set('Accept', 'application/json');
         return r;
@@ -35,8 +35,8 @@ const TrelloBoards = function TrelloBoards() {
             urls: boardIds.map(boardId => `/boards/${boardId}?${querystring.encode(dataFields)}`)
         })
         .query({
-            key: `${apiKey}`,
-            token: `${token}`
+            key: apiKey,
+            token: token
         })
         .set('Accept', 'application/json');
         return r;
@@ -46,8 +46,8 @@ const TrelloBoards = function TrelloBoards() {
         const r = await supertest(urls.trello)
             .get(`/1/boards/${idBoard}/lists`)
             .query({
-                key: `${apiKey}`,
-                token: `${token}`
+                key: apiKey,
+                token: token
             })
             .set('Accept', 'application/json');
         return r;
@@ -57,8 +57,8 @@ const TrelloBoards = function TrelloBoards() {
         const r = await supertest(urls.trello)
             .get(`/1/boards/${idBoard}/cards`)
             .query({
-                key: `${apiKey}`,
-                token: `${token}`
+                key: apiKey,
+                token: token
             })
             .set('Accept', 'application/json');
         return r;
@@ -68,7 +68,11 @@ const TrelloBoards = function TrelloBoards() {
         idBoard, apiKey, token, name
     ) {
         const r = await supertest(urls.trello)
-            .put(`/1/boards/${idBoard}?key=${apiKey}&token=${token}`)
+            .put(`/1/boards/${idBoard}`)
+            .query ({
+                key: apiKey,
+                token: token
+            })
             .set('Accept', 'application/json')
             .send(name);
         return r;
